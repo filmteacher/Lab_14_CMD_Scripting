@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -64,19 +65,12 @@ public class DataSaver
         // use the toolkit to get the current working directory of the IDE
         // will create the file within the project src folder
         File workingDirectory = new File(System.getProperty("user.dir"));
-        Path file = Paths.get(workingDirectory.getPath() + "\\src\\" +filename+ ".txt");
+        Path path = Paths.get(workingDirectory.getPath() + "\\src\\" +filename+ ".txt");
 
-        try
+        // This was the syntx in the cookbook, couldn't get the CREATE syntax from the lecture to work
+        try (BufferedWriter writer =
+                     Files.newBufferedWriter(path, Charset.forName("UTF-8")))
         {
-            // Typical java pattern of inherited classes
-            // we wrap a BufferedWriter around a lower level BufferedOutputStream
-            OutputStream out =
-                    new BufferedOutputStream(Files.newOutputStream(file, CREATE));
-            BufferedWriter writer =
-                    new BufferedWriter(new OutputStreamWriter(out));
-
-            // Finally, can write the file LOL!
-
             for(String rec : recs)
             {
                 writer.write(rec, 0, rec.length());  // stupid syntax for write rec
@@ -87,11 +81,11 @@ public class DataSaver
             writer.close(); // must close the file to seal it and flush buffer
             System.out.println("Data file written!");
         }
-        catch (IOException e)
+        // This was also a little different in the cookbook - ex instead of e
+        catch (IOException ex)
         {
-            e.printStackTrace();
+            ex.printStackTrace();
         }
-
     }
 }
 
