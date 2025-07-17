@@ -55,7 +55,7 @@ public class FileInspector {
 
                     //As you read each line, count how many words there are.
                     //You can use the split function to return an array of the words and the length of the array is how many words there are.
-                    String[] words = line.split(" ")
+                    String[] words = line.split(" ");
                     wordCount += words.length();
 
                     //Finally, as you read each line use the String length property to count how many characters are in the line and keep track of the total length of the file.
