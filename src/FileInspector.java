@@ -23,7 +23,7 @@ public class FileInspector {
         int wordCount = 0;
         int charCount = 0;
 
-                //Create a java program FileInspector.java that uses the JFileChooser dialog to let the user specify a text file from the system.
+        //Create a java program FileInspector.java that uses the JFileChooser dialog to let the user specify a text file from the system.
         JFileChooser chooser = new JFileChooser();
         Scanner inFile;
         String line;
@@ -41,8 +41,7 @@ public class FileInspector {
 
                 inFile = new Scanner(target);
 
-                while(inFile.hasNextLine())
-                {
+                while(inFile.hasNextLine()) {
                     //The program should then open and read the file line by line
                     line = inFile.nextLine();
 
@@ -59,17 +58,17 @@ public class FileInspector {
 
                     //Finally, as you read each line, use the String length property to count how many characters are in the line and keep track of the total length of the file.
                     charCount += line.length();
-
-                    //Then, the program should print a summary report of the file to the screen.
-                    //The name of the file the user chose to process
-                    System.out.printf("File: %s\n", target.getFileName());
-                    //Number of lines in the file
-                    System.out.println( "Number of lines: " + lineCount);
-                    //Number of words in the file
-                    System.out.println( "Number of words: " + wordCount);
-                    //Number of characters in the file
-                    System.out.println( "Number of characters: " + charCount);
                 }
+
+                //Then, the program should print a summary report of the file to the screen.
+                //The name of the file the user chose to process
+                System.out.printf("File: %s\n", target.getFileName());
+                //Number of lines in the file
+                System.out.println( "Number of lines: " + lineCount);
+                //Number of words in the file
+                System.out.println( "Number of words: " + wordCount);
+                //Number of characters in the file
+                System.out.println( "Number of characters: " + charCount);
 
                 inFile.close();
             }
