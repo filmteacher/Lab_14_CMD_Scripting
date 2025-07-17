@@ -37,7 +37,7 @@ public class FileInspector {
 
             if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
             {
-                target = chooser.getSelectedFile().toPath();  // this is a File object not a String filename
+                target = chooser.getSelectedFile().toPath();  // this is a File object, not a String filename
 
                 inFile = new Scanner(target);
 
@@ -53,11 +53,11 @@ public class FileInspector {
                     lineCount++;
 
                     //As you read each line, count how many words there are.
-                    //You can use the split function to return an array of the words and the length of the array is how many words there are.
+                    //You can use the split function to return an array of the words, and the length of the array is how many words there are.
                     String[] words = line.split(" ");
                     wordCount += words.length;
 
-                    //Finally, as you read each line use the String length property to count how many characters are in the line and keep track of the total length of the file.
+                    //Finally, as you read each line, use the String length property to count how many characters are in the line and keep track of the total length of the file.
                     charCount += line.length();
 
                     //Then, the program should print a summary report of the file to the screen.
@@ -76,7 +76,7 @@ public class FileInspector {
             // User did not pick a file, closed the chooser
             else
             {
-                System.out.println("Sorry, you must select a file! Termininating!");
+                System.out.println("Sorry, you must select a file! Terminating!");
                 System.exit(0);
             }
         }
