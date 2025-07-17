@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -17,19 +18,17 @@ import java.util.Scanner;
 //Use the SafeInput library for getting the data.
 //Write the data in the CSV record format.
 
-public class DataSaver
-{
+public class DataSaver {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
 
         // Initialize variables
         ArrayList<String> recs = new ArrayList<>();
-        boolean confirm=true;
+        boolean confirm = true;
         Scanner in = new Scanner(System.in);
-        String filename;
+        String filename = "";
 
         do {
             //Test Data
@@ -55,24 +54,19 @@ public class DataSaver
             //and write the data into the csv file which should be in the src directory of the intelliJ project.
             //Run your program and create a data file record that has at least 3 CSV records.
 
-            confirm = SafeInput.getYNConfirm(in,"Would you like to add another record?");
+            confirm = SafeInput.getYNConfirm(in, "Would you like to add another record?");
 
         } while (confirm);
-        // uses a fixed known path:
-        // Path file = Paths.get("c:\\My Documents\\data.txt");
-        filename=SafeInput.getNonZeroLenString(in,"Enter the file name (minus the extension)");
 
-        // use the toolkit to get the current working directory of the IDE
-        // will create the file within the project src folder
-        File workingDirectory = new File(System.getProperty("user.dir"));
-        Path path = Paths.get(workingDirectory.getPath() + "\\src\\" +filename+ ".txt");
+        Path target = new File(System.getProperty("user.dir")).toPath();
+        //(Code the JFileChooser to open in the src directory of the IntelliJ project.)
+        target = target.resolve("src");
+        Path fileLocation= getOutputPath(target.toString());
 
         // This was the syntx in the cookbook, couldn't get the CREATE syntax from the lecture to work
         try (BufferedWriter writer =
-                     Files.newBufferedWriter(path, Charset.forName("UTF-8")))
-        {
-            for(String rec : recs)
-            {
+                     Files.newBufferedWriter(fileLocation, Charset.forName("UTF-8"))) {
+            for (String rec : recs) {
                 writer.write(rec, 0, rec.length());  // stupid syntax for write rec
                 // 0 is where to start (1st char) the write
                 // rec. length() is how many chars to write (all)
@@ -82,14 +76,25 @@ public class DataSaver
             System.out.println("Data file written!");
         }
         // This was also a little different in the cookbook - ex instead of e
-        catch (IOException ex)
-        {
+        catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
+    public static Path getOutputPath(String s) {
+        JFileChooser jd = s == null ? new JFileChooser() : new JFileChooser(s);
+        jd.setDialogTitle("Filename to save to:");
+        int returnVal = jd.showSaveDialog(null);
+        if (returnVal != JFileChooser.APPROVE_OPTION) {
+            return null;
+        }
+        else {
+            return jd.getSelectedFile().toPath();
+        }
+
+    }
+
 }
-
-
 //Screenshots
 //Paste a screenshot here that shows the Data Input.
 //Paste a screenshot here that shows the saved file in the src directory of IntelliJ.
