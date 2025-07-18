@@ -29,41 +29,46 @@ public class DataSaver {
         boolean confirm = true;
         Scanner in = new Scanner(System.in);
         String filename = "";
+        String firstName = "";
+        String lastName = "";
+        String idNumber = "";
+        String email = "";
+        String yearOfBirth = "";
 
+        //Loop the data input routine to allow the user to create as many records as they wish.
         do {
-            //Test Data
-            recs.add("Sample data for our file writing example.");
-            recs.add("Sample data Line 2.");
-            recs.add("Sample data Line 3.");
-            recs.add("Sample data Line 4.");
-            recs.add("Sample data Line 5.");
+            System.out.println("Enter your record data in this format");
+            System.out.println("First Name");
+            System.out.println("Last Name");
+            System.out.println("ID Number as a zero replaced string of 6 digits (000001, 000002, etc.)");
+            System.out.println("Email");
+            System.out.println("Year of Birth as a four digit integer (1978, etc.)");
 
-            //Data:
-            //•	First Name
-            //•	Last Name
-            //•	ID Number (a zero replaced string of 6 digits 000001, 000002, etc.)
-            //•	Email
-            //•	Year of Birth (a four digit integer 1978, etc.)
-            //
+            firstName = SafeInput.getNonZeroLenString(in, "Enter a first name");
+            lastName = SafeInput.getNonZeroLenString(in, "Enter a last name");
+            idNumber = SafeInput.getNonZeroLenString(in, "Enter an ID number");
+            email = SafeInput.getNonZeroLenString(in, "Enter an email");
+            yearOfBirth = SafeInput.getNonZeroLenString(in, "Enter a year of birth");
+
+            //Save the CSV records initially into an arrayList of type <String>
+            recs.add(firstName + "," + lastName + "," + idNumber + "," + email + "," + yearOfBirth);
+
             //Here is a sample CSV record:
             //Bilbo, Baggins, 000001, BBaggins@shire.net, 1044
-            //Loop the data input routine to allow the user to create as many records as they wish.
-            //Save the CSV records initially into an arrayList of type <String>
-            //and then once the user has completed the input of all the records
-            //prompt for the file name (add the .csv extension)
-            //and write the data into the csv file which should be in the src directory of the intelliJ project.
-            //Run your program and create a data file record that has at least 3 CSV records.
 
             confirm = SafeInput.getYNConfirm(in, "Would you like to add another record?");
 
         } while (confirm);
 
-        Path target = new File(System.getProperty("user.dir")).toPath();
+        //Once the user has completed the input of all the records,
+        //prompt for the file name (add the .csv extension)
         //(Code the JFileChooser to open in the src directory of the IntelliJ project.)
+        Path target = new File(System.getProperty("user.dir")).toPath();
         target = target.resolve("src");
         Path fileLocation= getOutputPath(target.toString());
 
-        // This was the syntx in the cookbook, couldn't get the CREATE syntax from the lecture to work
+        //Write the data into the csv file which should be in the src directory of the intelliJ project.
+        //This was the syntx in the cookbook, couldn't get the CREATE syntax from the lecture to work
         try (BufferedWriter writer =
                      Files.newBufferedWriter(fileLocation, Charset.forName("UTF-8"))) {
             for (String rec : recs) {
@@ -95,11 +100,9 @@ public class DataSaver {
     }
 
 }
-//Screenshots
-//Paste a screenshot here that shows the Data Input.
-//Paste a screenshot here that shows the saved file in the src directory of IntelliJ.
-//Paste a screenshot here that shows the file opened in the IntelliJ editor.
-//
+
+//Run your program and create a data file record that has at least 3 CSV records.
+
 //Criteria:
 //Program uses safe input to loop and collect record data
 //which is saved as csv into an arrayList and then written to a text file on disk.
