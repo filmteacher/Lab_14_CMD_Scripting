@@ -33,7 +33,6 @@ public class FileScan {
             {
                 //which if present should be the name of a text file in the current directory to scan
                 Path target = new File(System.getProperty("user.dir")).toPath();
-                target = target.resolve("src");
                 String filePath = target + File.separator + args[0];
                 target = new File(filePath).toPath();
                 inFile = new Scanner(target);
@@ -45,7 +44,6 @@ public class FileScan {
                 JFileChooser chooser = new JFileChooser();
 
                 Path target = new File(System.getProperty("user.dir")).toPath();
-                target = target.resolve("src");
                 chooser.setCurrentDirectory(target.toFile());
 
                 if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
