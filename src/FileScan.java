@@ -12,7 +12,7 @@ import javax.swing.JFileChooser;
  * @author Matt Bennett matt.bennett@uc.edu Lab 12
  */
 
-public class FileInspector {
+public class FileScan {
     /**
      * @param args the command line arguments
      */
@@ -23,7 +23,7 @@ public class FileInspector {
         int wordCount = 0;
         int charCount = 0;
 
-        //Create a java program FileInspector.java that uses the JFileChooser dialog to let the user specify a text file from the system.
+        //Create a java program FileScan.java that uses the JFileChooser dialog to let the user specify a text file from the system.
         JFileChooser chooser = new JFileChooser();
         Scanner inFile;
         String line;
